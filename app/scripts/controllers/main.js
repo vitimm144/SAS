@@ -1,25 +1,34 @@
 'use strict';
 
-angular.module('TrabsasApp')
-  .controller('MainCtrl', function ($scope, $http, $window) {
-    $scope.usuario = {"login":"", "senha":"" };
-
-    $scope.enviar = function(){
-      console.log("entrou em enviar");
-      $http.post("/login", $scope.usuario)
-        .success(function(){
-          $window.alert("conectou");
-          console.log("OK");
-        })
-        .error(function(){
-          $window.alert("error");
-        });
-      
-   };
-   $scope.comando = function(){
-       $http.get("/comando").success(function(data){
-          console.log(data); 
-       });
-   };
-
-});
+angular.module('authApp')
+  .controller('MainCtrl', function (errorService,$scope, $location, $http, Restangular) {
+    $scope.$on('event:loginRequired', function() {
+      $location.path('/login');
+    });
+    
+    
+//    var v;
+//    var rest = Restangular.all('grupos');
+//    $scope.grupos = rest.getList();
+//    $scope.set = function(){
+//      var a = Restangular.one('grupos', 3).one('campanhas', 15).interromper()
+//        .then(function (){
+//          console.log('interrompido');
+//        });
+//    };
+    $scope.resposta = function(){
+       $http.get('api/comando').success(function(data){
+        console.log(JSON.parse(data));
+      });
+    };
+    $scope.sair = function(){
+      $http.get('api/logout').success(function(){
+        $location.path('/login');
+      }).error(function(){
+        $scope.errorService = errorService;
+      });
+    };
+    $scope.interromper = function(){
+     $scope.campanhas.interromper();
+    };
+  });

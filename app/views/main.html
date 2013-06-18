@@ -1,12 +1,5 @@
-<div class="hero-unit">
-  	<form> 
-		<label>Login: 
-			<input placeholder="Login" type="text" data-ng-model="usuario.login" required/> 
-		</label>
-		<label>Senha: 
-			<input placeholder="Senha" type="password" data-ng-model="usuario.senha"required/> 
-		</label> 
-		  <button data-ng-click="enviar()" >Enviar</button>
-	</form>
-    <button data-ng-click="comando()"> Comando </button>
+<div>
+  <div alert-bar alertmessage="errorService.errorMessage"></div>
+  <h1> Respostas </h1>
+  <button class="botao interromper" data-ng-click="resposta()"> Resposta </button>
 </div>

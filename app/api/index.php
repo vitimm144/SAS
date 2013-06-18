@@ -39,10 +39,10 @@ $r3->get('/comando', function() {
 
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $resposta = '';
-            exec('ls', $resposta);
-            
-          return json_encode($resposta);
+            $resposta =  shell_exec('ls');
+            //echo $resposta
+            return $resposta;
+            //return json_encode($resposta);
           } else {
             header('HTTP/1.1 401 Unauthorized');
             //return 401;

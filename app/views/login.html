@@ -1,0 +1,15 @@
+<div class="hero-unit">
+  <h1>Tela de Login</h1>
+  <form>
+    <label>
+      Login:
+      <input type="text" data-ng-model="usuario.login"/>
+    </label>
+    <label>
+      Senha:
+      <input type="password" data-ng-model="usuario.senha"/>
+    </label>
+    <button class="btn btn-primary" data-ng-click="enviar()"> Ok </button>
+  </form>
+</div>
+<div alert-bar alertmessage="errorService.errorMessage"></div>
