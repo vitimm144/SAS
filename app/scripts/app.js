@@ -11,10 +11,6 @@ angular.module('authApp', ['restangular', 'ui.unique'])
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
-      .when('/grid', {
-        templateUrl: 'views/grid.html',
-        controller: 'GridCtrl'
-      })
       .otherwise({
         redirectTo: '/'
       });

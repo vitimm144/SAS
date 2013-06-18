@@ -18,7 +18,7 @@ angular.module('authApp')
 //    };
     $scope.resposta = function(){
        $http.get('api/comando').success(function(data){
-        console.log(JSON.parse(data));
+        console.log(data);
       });
     };
     $scope.sair = function(){
@@ -28,7 +28,5 @@ angular.module('authApp')
         $scope.errorService = errorService;
       });
     };
-    $scope.interromper = function(){
-     $scope.campanhas.interromper();
-    };
+   
   });
