@@ -39,7 +39,7 @@ $r3->get('/comando', function() {
 
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $resposta =  shell_exec('ls');
+            $resposta =  shell_exec('who');
             //echo $resposta
             return $resposta;
             //return json_encode($resposta);
