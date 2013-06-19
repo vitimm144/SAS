@@ -1,4 +1,33 @@
 <div>
+  <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+ 
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+ 
+      <!-- Be sure to leave the brand out there if you want it shown -->
+      <a class="brand" href="#">SAS</a>
+      <a class="brand" href="#">Home</a>
+ 
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse collapse">
+        <!-- .nav, .navbar-search, .navbar-form, etc -->
+        <input class="nav navbar-search" type="text" data-ng-model="busca" />
+      </div>
+      <span></span>
+      <a class="brand" data-ng-click="sair()">Sair</a>
+    </div>
+  </div>
+</div>
+  <label>Usuário Logado</label>
+  <span>{{who}}<span>  
+  <label>history</label>
+  <span>{{history}}<span>  
   <div alert-bar alertmessage="errorService.errorMessage"></div>
   <h1> Respostas </h1>
   <button class="botao interromper" data-ng-click="resposta()"> Resposta </button>

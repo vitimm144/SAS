@@ -6,19 +6,12 @@ angular.module('authApp')
       $location.path('/login');
     });
     
-    
-//    var v;
-//    var rest = Restangular.all('grupos');
-//    $scope.grupos = rest.getList();
-//    $scope.set = function(){
-//      var a = Restangular.one('grupos', 3).one('campanhas', 15).interromper()
-//        .then(function (){
-//          console.log('interrompido');
-//        });
-//    };
     $scope.resposta = function(){
-       $http.get('api/comando').success(function(data){
-        console.log(JSON.decode(data));
+       $http.get('api/who').success(function(data){
+        $scope.who = data;
+      });
+       $http.get('api/history').success(function(data){
+        $scope.history = data;
       });
     };
     $scope.sair = function(){
@@ -28,5 +21,4 @@ angular.module('authApp')
         $scope.errorService = errorService;
       });
     };
-   
   });

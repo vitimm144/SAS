@@ -35,24 +35,26 @@ $r3->any('/logout', function() {
           session_destroy();
         });
 
-$r3->get('/comando', function() {
+$r3->get('/who', function() {
 
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $resposta =  shell_exec('ifconfig');
-            //echo $resposta
-            //return $resposta;
-            //return json_encode($resposta);
-            return md5('victor');
-            //return;
+            $who =  exec('who');
+            return $who;
           } else {
             header('HTTP/1.1 401 Unauthorized');
-            //return 401;
           }
         });
-
-$r3->post('/campanhas/*/destinos', function($id) {
-          return file_get_contents('php://input');
+        
+$r3->get('/history', function() {
+          if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
+            header("Content-Type: application/json");
+            $history =  exec('sudo history');
+            //$history =  exec('cat /var/log/kern.log');
+            return json_encode($history);
+          } else {
+            header('HTTP/1.1 401 Unauthorized');
+          }
         });
 
 
