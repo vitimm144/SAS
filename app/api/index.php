@@ -49,9 +49,9 @@ $r3->get('/who', function() {
 $r3->get('/history', function() {
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $history =  exec('sudo history');
-            //$history =  exec('cat /var/log/kern.log');
-            return json_encode($history);
+//            $history =  exec('sudo history');
+            $history =  json_encode(exec('cat /home/victor/.bash_history'));
+            return $history;
           } else {
             header('HTTP/1.1 401 Unauthorized');
           }
