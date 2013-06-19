@@ -17,7 +17,7 @@ $r3->any('/login', function() {
 
           $data = json_decode(file_get_contents('php://input'), true);
 
-          if (($data['login'] == 'vh' && $data['senha'] == 123) || ($data['login'] == 'silva' && $data['senha'] == 123)) {
+          if (($data['login'] == 'vh' && $data['senha'] == '202cb962ac59075b964b07152d234b70') || ($data['login'] == 'silva' && $data['senha'] == 'caf1a3dfb505ffed0d024130f58c5cfa')) {
             $_SESSION['logado'] = true;
             
             header('HTTP/1.1 200');
@@ -39,10 +39,11 @@ $r3->get('/comando', function() {
 
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $resposta =  shell_exec('who');
+            $resposta =  shell_exec('ifconfig');
             //echo $resposta
             //return $resposta;
-            return json_encode($resposta);
+            //return json_encode($resposta);
+            return md5('victor');
             //return;
           } else {
             header('HTTP/1.1 401 Unauthorized');
