@@ -1,4 +1,4 @@
-<div>
+<div class="hero-unit">
   <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
@@ -24,12 +24,25 @@
     </div>
   </div>
 </div>
-  <label>Usuário Logado</label>
-  <span>{{who}}<span>  
-  <label>history</label>
-  <span>{{history}}<span>  
+<div class="row-fluid">    
+   
+  <!--<select data-ng-model="selecionado" data-ng-options="usuario for usuario in usuarios"></select>-->
+  <div class="span4">
+      <label class="label-info">Usuários do Sistema</label> 
+      <div  data-ng-repeat="usuario in usuarios">
+        <span class="label">{{usuario}}</span>
+      </div>
+  </div>
+  <label class="label"> Usuario Logado</label>
+  <span class="label-success">{{who}}<span>
+  <div class="span4">
+    <label class="label-warning">history</label>
+    <div data-ng-repeat=" h in history">
+      <span>{{h}}</span>
+    </div>        
+  </div>
   <div alert-bar alertmessage="errorService.errorMessage"></div>
-  <h1> Respostas </h1>
+  <!--<h1> Respostas </h1>-->
   <button class="botao interromper" data-ng-click="resposta()"> Resposta </button>
-  <button class="botao interromper" data-ng-click="sair()"> Sair </button>
+</div>  
 </div>

@@ -49,9 +49,20 @@ $r3->get('/who', function() {
 $r3->get('/history', function() {
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-//            $history =  exec('sudo history');
-            $history =  json_encode(exec('cat /home/victor/.bash_history'));
-            return $history;
+            //$history =  exec('/bin/bash/history');
+            $history = file_get_contents('/root/.bash_history');
+            return json_encode($history);
+          } else {
+            header('HTTP/1.1 401 Unauthorized');
+          }
+        });
+$r3->get('/usuarios', function() {
+          if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
+            header("Content-Type: application/json");
+            exec('cut -d: -f1 /etc/passwd > usuarios.txt');
+            $usuario = file_get_contents('/home/victor/devel/Trabsas/app/api/usuarios.txt');
+            
+            return json_encode($usuario);
           } else {
             header('HTTP/1.1 401 Unauthorized');
           }
