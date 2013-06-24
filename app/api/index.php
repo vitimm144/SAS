@@ -39,18 +39,29 @@ $r3->get('/who', function() {
 
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $who =  exec('who');
+            $cont = 0;
+            $result;
+            $who = [];
+               exec('who', &$result, $cont);
+            for ($i = 0; $i< $cont; $i ++){
+              $who[i]=$result[i]; 
+            }
             return $who;
           } else {
             header('HTTP/1.1 401 Unauthorized');
           }
         });
         
-$r3->get('/history', function() {
+$r3->get('/history/*', function($usuario) {
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            //$history =  exec('/bin/bash/history');
-            $history = file_get_contents('/root/.bash_history');
+            if($usuario == 'root'){
+              $history = file_get_contents('/root/.bash_history');
+          }else{
+              $caminho = '/home/'.$usuario.'/.bash_history';
+              
+              $history = file_get_contents($caminho);
+          }
             return json_encode($history);
           } else {
             header('HTTP/1.1 401 Unauthorized');
@@ -59,9 +70,17 @@ $r3->get('/history', function() {
 $r3->get('/usuarios', function() {
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            exec('cut -d: -f1 /etc/passwd > usuarios.txt');
-            $usuario = file_get_contents('/home/victor/devel/Trabsas/app/api/usuarios.txt');
-            
+           // exec('cut -d : -f1 /etc/passwd > usuarios.txt');
+            //$usuario = file_get_contents('/home/victor/devel/Trabsas/app/api/usuarios.txt');
+            $usuario = [];
+            $count = 0;
+            //$usuario = file_get_contents('/etc/passwd');
+            $arquivo = fopen('/etc/passwd', 'r');
+            while(!feof($arquivo)){
+               $usuario[$count]= fgets($arquivo);
+               $count ++;
+            }
+            fclose($arquivo);
             return json_encode($usuario);
           } else {
             header('HTTP/1.1 401 Unauthorized');

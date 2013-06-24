@@ -19,6 +19,7 @@
         <!-- .nav, .navbar-search, .navbar-form, etc -->
         <input class="nav navbar-search" type="text" data-ng-model="busca" />
       </div>
+     
       <span></span>
       <a class="brand" data-ng-click="sair()">Sair</a>
     </div>
@@ -28,10 +29,12 @@
    
   <!--<select data-ng-model="selecionado" data-ng-options="usuario for usuario in usuarios"></select>-->
   <div class="span4">
-      <label class="label-info">Usuários do Sistema</label> 
-      <div  data-ng-repeat="usuario in usuarios">
+      <label class="label-info">Usuários do Sistema</label>
+       <select data-ng-model="usuario" data-ng-options="user for user in usuarios"> </select>
+<!--      
+<div  data-ng-repeat="usuario in usuarios">
         <span class="label">{{usuario}}</span>
-      </div>
+      </div>-->
   </div>
   <label class="label"> Usuario Logado</label>
   <span class="label-success">{{who}}<span>
@@ -43,6 +46,6 @@
   </div>
   <div alert-bar alertmessage="errorService.errorMessage"></div>
   <!--<h1> Respostas </h1>-->
-  <button class="botao interromper" data-ng-click="resposta()"> Resposta </button>
+  <button class="botao interromper" data-ng-click="getUserOnline()"> ver </button>
 </div>  
 </div>
