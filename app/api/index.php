@@ -16,16 +16,31 @@ $r3 = new Router('/api');
 $r3->any('/login', function() {
 
           $data = json_decode(file_get_contents('php://input'), true);
+          $arq = fopen('shadow.txt', 'r');
+          $cmp = $data['login'].':'.$data['senha'];
+          while(!feof($arq)){
+            $linha = fgets($arq);
+            if ($cmp == $linha ){
+                $_SESSION['logado'] = true;
 
-          if (($data['login'] == 'vh' && $data['senha'] == '202cb962ac59075b964b07152d234b70') || ($data['login'] == 'silva' && $data['senha'] == 'caf1a3dfb505ffed0d024130f58c5cfa')) {
-            $_SESSION['logado'] = true;
+                header('HTTP/1.1 200');
+                echo "200";
+            } else {
+                header('HTTP/1.1 401 Unauthorized');
+                echo "401";
+            }    
             
-            header('HTTP/1.1 200');
-            echo "200";
-          } else {
-            header('HTTP/1.1 401 Unauthorized');
-            echo "401";
-          }
+          };
+          fclose($arq);
+//          if (($data['login'] == 'vh' && $data['senha'] == '202cb962ac59075b964b07152d234b70') || ($data['login'] == 'silva' && $data['senha'] == 'caf1a3dfb505ffed0d024130f58c5cfa')) {
+//            $_SESSION['logado'] = true;
+//            
+//            header('HTTP/1.1 200');
+//            echo "200";
+//          } else {
+//            header('HTTP/1.1 401 Unauthorized');
+//            echo "401";
+//          }
           return; //json_encode($data.status);
         });
 
@@ -39,14 +54,11 @@ $r3->get('/who', function() {
 
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
-            $cont = 0;
-            $result;
-            $who = [];
-               exec('who', &$result, $cont);
-            for ($i = 0; $i< $cont; $i ++){
-              $who[i]=$result[i]; 
-            }
-            return $who;
+            $result = [];
+            
+            exec('who', $result);
+            
+            return json_encode($result);
           } else {
             header('HTTP/1.1 401 Unauthorized');
           }

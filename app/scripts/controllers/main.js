@@ -6,7 +6,7 @@ angular.module('authApp')
       $location.path('/login');
     });
     $scope.$watch('usuario', function(){
-        console.log($scope.usuario);
+        //console.log($scope.usuario);
        if($scope.usuario)
         $scope.getHistory();
     });
@@ -34,7 +34,7 @@ angular.module('authApp')
           
           //$scope.usuarios = data.split('sh');
           //$scope.usuarios = data;
-          console.log($scope.usuarios);
+          //console.log($scope.usuarios);
       });  
     };
     $scope.reqUser();
@@ -47,7 +47,9 @@ angular.module('authApp')
     };
     $scope.getUserOnline = function(){
         $http.get('api/who').success(function(data){
+         console.log(data[1]);
         $scope.who = data;
+        console.log($scope.who);
       });
     };
     $scope.sair = function(){

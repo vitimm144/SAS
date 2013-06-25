@@ -36,16 +36,23 @@
         <span class="label">{{usuario}}</span>
       </div>-->
   </div>
-  <label class="label"> Usuario Logado</label>
-  <span class="label-success">{{who}}<span>
-  <div class="span4">
+ 
+  <div class="span3">
     <label class="label-warning">history</label>
     <div data-ng-repeat=" h in history">
       <span>{{h}}</span>
     </div>        
   </div>
+   <div class="span5">
+    <label class="label"> Usuarios Logado</label>
+    <button class="botao interromper" data-ng-click="getUserOnline()"> ver </button>
+    <div  data-ng-repeat="logado in who"> 
+      <span  class="label-success">{{logado}}<span>
+    </div>
+    
+  </div>
   <div alert-bar alertmessage="errorService.errorMessage"></div>
   <!--<h1> Respostas </h1>-->
-  <button class="botao interromper" data-ng-click="getUserOnline()"> ver </button>
+  
 </div>  
 </div>
