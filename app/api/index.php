@@ -14,20 +14,30 @@ $r3 = new Router('/api');
 
 
 $r3->any('/login', function() {
-
+          unlink("/tmp/teste");
           $data = json_decode(file_get_contents('php://input'), true);
+          
           $arq = fopen('shadow.txt', 'r');
           $cmp = $data['login'].':'.$data['senha'];
+          
           while(!feof($arq)){
             $linha = fgets($arq);
-            if ($cmp == $linha ){
+            
+            
+            
+            
+            if (trim($cmp) == trim($linha) ){
+                file_put_contents("/tmp/teste", $cmp. " | ".$linha, FILE_APPEND);
+                
                 $_SESSION['logado'] = true;
 
                 header('HTTP/1.1 200');
-                echo "200";
+                break;
+                //echo "200";
             } else {
+                file_put_contents("/tmp/teste", $cmp. " || ".$linha, FILE_APPEND);
                 header('HTTP/1.1 401 Unauthorized');
-                echo "401";
+                //echo "401";
             }    
             
           };
@@ -41,7 +51,7 @@ $r3->any('/login', function() {
 //            header('HTTP/1.1 401 Unauthorized');
 //            echo "401";
 //          }
-          return; //json_encode($data.status);
+          return "200"; //json_encode($data.status);
         });
 
 $r3->any('/logout', function() {
@@ -68,11 +78,11 @@ $r3->get('/history/*', function($usuario) {
           if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
             header("Content-Type: application/json");
             if($usuario == 'root'){
-              $history = file_get_contents('/root/.bash_history');
+              $history = file('/root/.bash_history', FILE_IGNORE_NEW_LINES);
           }else{
               $caminho = '/home/'.$usuario.'/.bash_history';
               
-              $history = file_get_contents($caminho);
+              $history = file($caminho, FILE_IGNORE_NEW_LINES);
           }
             return json_encode($history);
           } else {

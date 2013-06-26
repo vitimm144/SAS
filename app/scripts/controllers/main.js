@@ -41,8 +41,7 @@ angular.module('authApp')
     $scope.getHistory = function(){
        
        $http.get('api/history/'+ $scope.usuario).success(function(data){
-       // console.log(data);
-        $scope.history = data.split('\\');
+        $scope.history = data;
       });
     };
     $scope.getUserOnline = function(){
